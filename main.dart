@@ -231,3 +231,118 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import 'dart:math';
+
+import 'package:flutter/material.dart';
+
+
+void main() =>  runApp(
+    new MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: new Scaffold(
+            body: new Center(
+              child: new MyBody(),
+            )
+        )
+    )
+);
+
+class MyBody extends StatefulWidget {
+  @override
+  createState() => new MyBodyState();
+}
+
+class MyBodyState extends State<MyBody> {
+  final List _array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  int index = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+            "Оплата заказа",
+            style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                decoration: TextDecoration.none
+            )
+        ),
+        backgroundColor: Colors.blueAccent,
+      ),
+      body: Center(
+        child: ListView(
+          padding: EdgeInsets.all(32),
+          children: [
+            buildBrandsList(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildBrandsList(){
+    return ListView.builder(itemBuilder: (context, i){
+      //print('num $i : нечетное = ${i.isOdd}');
+
+      if(i.isOdd) return new Divider();
+
+      final int index = i ~/ 2;
+
+      //print('index $index');
+      //print('length ${_array.length}');
+
+      if (index >= _array.length) _array.addAll([index, index + 1, index + 2]);
+
+      return SizedBox(
+        height: 70.0,
+        child: ListTile(
+          title: Text('${_array[index]}'),
+          leading: Image.asset("assets/images/eda.png"),
+          subtitle: Text('A sufficiently long subtitle warrants three lines.'),
+          trailing: Icon(Icons.more_vert),
+          isThreeLine: true,
+        ),
+      );
+    };),
+  }
+}
