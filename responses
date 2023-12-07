@@ -1,0 +1,32 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+const url = 'http://website/';
+
+//GET
+Future<dynamic> getData() async {
+  final response = await http.get(Uri.parse(url+'menu'));
+  if (response.statusCode == 200) {
+    return json.decode(response.body);
+  } else {
+    throw Exception('Failed to load data');
+  }
+}
+
+
+//POST
+Future<dynamic> sendData(String name, String email) async {
+  final response = await http.post(Uri.parse(url+'menu'),
+      body: json.encode({
+        "title": "Пицца-моцарелла",
+        "description": "Вкуснейшая пицца с сыром моцарелла!",
+        "image": "https://images/image.png",
+        "price": 590
+      }),
+      headers: {'Content-Type': 'application/json'});
+  if (response.statusCode == 200) {
+    return json.decode(response.body);
+  } else {
+    throw Exception('Failed to send data');
+  }
+}
